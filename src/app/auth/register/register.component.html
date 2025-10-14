@@ -1,0 +1,15 @@
+<div class="register-box">
+    <h2>Đăng ký tài khoản</h2>
+    <form (ngSubmit)="onRegister()">
+        <input name="username" [(ngModel)]="username" placeholder="Tên đăng nhập" required />
+        <input name="email" type="email" [(ngModel)]="email" placeholder="Email" required />
+        <input name="password" type="password" [(ngModel)]="password" placeholder="Mật khẩu" required />
+        <input name="confirmPassword" type="password" [(ngModel)]="confirmPassword" placeholder="Xác nhận mật khẩu"
+            required />
+        <input name="fullName" [(ngModel)]="fullName" placeholder="fullName" />
+        <button type="submit">Đăng ký</button>
+    </form>
+    <button (click)="goToLogin()" class="login-link-btn">Đã có tài khoản? Đăng nhập</button>
+    <p *ngIf="error" style="color: red">{{ error }}</p>
+    <p *ngIf="success" style="color: green">{{ success }}</p>
+</div>
