@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
+// import { RouterLink } from "../../../../node_modules/@angular/router/router_module.d";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -38,10 +39,5 @@ export class LoginComponent {
     });
   }
 
-  onLoginAsGuest() {
-    // Đăng nhập với tài khoản khách - chuyển thẳng đến trang home
-    const guestUser = { username: 'guest', role: 'user' };
-    localStorage.setItem('user', JSON.stringify(guestUser));
-    this.router.navigate(['/']);
-  }
+
 }
