@@ -5,8 +5,19 @@
             <h2>CV Management</h2>
         </div>
         <div class="nav-actions">
-            <button class="btn-login" routerLink="/auth/login">Đăng nhập</button>
-            <button class="btn-register" routerLink="/auth/register">Đăng ký</button>
+            <!-- Hiển thị nút đăng nhập và đăng ký khi chưa đăng nhập -->
+            <ng-container *ngIf="!isLoggedIn">
+                <button class="btn-login" routerLink="/auth/login">Đăng nhập</button>
+                <button class="btn-register" routerLink="/auth/register">Đăng ký</button>
+            </ng-container>
+
+            <!-- Hiển thị thông tin user và nút đăng xuất khi đã đăng nhập -->
+            <ng-container *ngIf="isLoggedIn">
+                <div class="user-info">
+                    <button class="welcome-text" (click)="getUser()">Xin chào, {{ currentUser?.fullName || currentUser?.username || 'User' }}!</button>
+                    <button class="btn-logout" (click)="onLogout()">Đăng xuất</button>
+                </div>
+            </ng-container>
         </div>
     </nav>
 </header>
@@ -17,7 +28,9 @@
         <h1 class="hero-title">Tạo CV Chuyên Nghiệp</h1>
         <p class="hero-subtitle">Xây dựng CV ấn tượng và tìm kiếm công việc mơ ước của bạn</p>
         <div class="hero-actions">
-            <button class="btn-primary" routerLink="/auth/login">Tạo CV ngay</button>
+            <button class="btn-primary" [routerLink]="isLoggedIn ? '/user/dashboard' : '/auth/login'">
+                {{ isLoggedIn ? 'Tạo CV ngay' : 'Tạo CV ngay' }}
+            </button>
             <button class="btn-secondary">Xem mẫu CV</button>
         </div>
     </div>
@@ -102,7 +115,7 @@
     <div class="container">
         <h2>Sẵn sàng tạo CV của bạn?</h2>
         <p>Hàng nghìn ứng viên đã tìm được công việc mơ ước</p>
-        <button class="btn-primary" routerLink="/auth/login">Bắt đầu ngay</button>
+        <button class="btn-primary" [routerLink]="isLoggedIn ? '/user/dashboard' : '/auth/login'">Bắt đầu ngay</button>
     </div>
 </section>
 

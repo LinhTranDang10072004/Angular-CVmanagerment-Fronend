@@ -8,6 +8,7 @@ export const routes: Routes = [
   { path: '', component: Home },
   { path: 'auth/login', component: LoginComponent },
   { path: 'auth/register', component: RegisterComponent },
+
   // Keep old login route for backward compatibility
   { path: 'login', redirectTo: '/auth/login', pathMatch: 'full' },
   {path : 'register' ,redirectTo : '/auth/register' ,pathMatch : 'full'},
@@ -16,5 +17,14 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: AdminDashboardComponent }
     ]
+    
+  },
+  {
+    path: 'User',
+    children: [
+      { path: 'home', component: Home }
+    ]
+    
   }
+
 ];

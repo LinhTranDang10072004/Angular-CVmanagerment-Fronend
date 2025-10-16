@@ -3,7 +3,6 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
-// import { RouterLink } from "../../../../node_modules/@angular/router/router_module.d";
 
 @Component({
   selector: 'app-login',
@@ -25,12 +24,12 @@ export class LoginComponent {
         const user = res?.user ?? res;
         const role = String(user?.role ?? user?.roles?.[0] ?? '').toLowerCase();
         localStorage.setItem('user', JSON.stringify(user));
+        this.auth.setLoggedInStatus(true); // Cập nhật trạng thái đăng nhập
 
-        // 👉 Chuyển hướng theo vai trò
         if (role === 'admin') {
           this.router.navigate(['/admin/dashboard']);
         } else {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']); // Điều hướng đến trang Home (/)
         }
       },
       error: err => {
@@ -38,6 +37,4 @@ export class LoginComponent {
       }
     });
   }
-
-
 }
