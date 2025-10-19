@@ -24,6 +24,8 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
+    margin-left: -8px;
+    margin-right: -8px;
 }
 
 .navbar {
@@ -120,12 +122,15 @@ body {
     display: flex;
     align-items: center;
     min-height: 80vh;
+    margin-left: -8px;
+    margin-right: -8px;
 }
 
 .hero-content {
     flex: 1;
     max-width: 600px;
     padding: 0 2rem;
+    margin-left: 60px;
 }
 
 .hero-title {
@@ -188,6 +193,7 @@ body {
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    margin-left: 300px;
 }
 
 .cv-preview {
@@ -357,6 +363,8 @@ body {
     color: white;
     padding: 5rem 0;
     text-align: center;
+    margin-left: -8px;
+    margin-right: -8px;
 }
 
 .cta h2 {
@@ -388,6 +396,9 @@ body {
     background: #1f2937;
     color: white;
     padding: 3rem 0 1rem;
+    margin-left: -8px;
+    margin-right: -8px;
+    margin-bottom: -20px;
 }
 
 .footer-content {
