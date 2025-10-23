@@ -21,9 +21,17 @@ export class LoginComponent {
   onLogin() {
     this.auth.login(this.username, this.password).subscribe({
       next: res => {
+        console.log('Login response:', res); // Debug log
         const user = res?.user ?? res;
+        const token = res?.token; // Lấy token từ response
         const role = String(user?.role ?? user?.roles?.[0] ?? '').toLowerCase();
-        localStorage.setItem('user', JSON.stringify(user));
+        
+        // Lưu cả user và token vào localStorage
+        const userData = {
+          ...user,
+          token: token
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
         this.auth.setLoggedInStatus(true); // Cập nhật trạng thái đăng nhập
 
         if (role === 'admin') {

@@ -1,1 +1,68 @@
-<p>profile works!</p>
+<div class="profile-container">
+  <div class="profile-header">
+    <button class="back-btn" (click)="goBack()">← Quay lại</button>
+    <h1>Thông tin cá nhân</h1>
+  </div>
+
+  <div class="profile-content">
+    <!-- Loading state -->
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Đang tải thông tin...</p>
+    </div>
+
+    <!-- Error state -->
+    <div *ngIf="error" class="error">
+      <p>{{ error }}</p>
+      <div class="error-actions">
+        <button (click)="loadUserData()" class="retry-btn">Thử lại</button>
+        <button *ngIf="error.includes('token') || error.includes('hết hạn')" (click)="goToLogin()"
+          class="login-btn">Đăng nhập lại</button>
+      </div>
+    </div>
+
+    <!-- User data -->
+    <div *ngIf="userData && !loading && !error" class="user-info">
+      <div class="profile-card">
+        <div class="profile-avatar">
+          <div class="avatar-circle">
+            {{ userData.fullName?.charAt(0)?.toUpperCase() || 'U' }}
+          </div>
+        </div>
+
+        <div class="profile-details">
+          <h2>{{ userData.fullName || 'Chưa có tên' }}</h2>
+          <p class="email">{{ userData.email }}</p>
+
+          <div class="info-grid">
+
+
+            <div class="info-item">
+              <label>Email:</label>
+              <span>{{ userData.email }}</span>
+            </div>
+
+            <div class="info-item">
+              <label>Họ và tên:</label>
+              <span>{{ userData.fullName || 'Chưa cập nhật' }}</span>
+            </div>
+
+            <div class="info-item">
+              <label>Ngày tạo:</label>
+              <span>{{ userData.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+
+            <div class="info-item">
+              <label>Cập nhật lần cuối:</label>
+              <span>{{ userData.updatedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-primary" (click)="loadUserData()">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

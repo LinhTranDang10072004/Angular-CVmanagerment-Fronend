@@ -48,9 +48,17 @@ export class Home implements OnInit, OnDestroy {
         console.log('Thông tin user từ API:', userData);
         // Cập nhật thông tin user
         this.currentUser = userData;
-        // Lưu vào localStorage để giữ thông tin mới nhất
-        localStorage.setItem('user', JSON.stringify(userData));
-        alert(`Xin chào ${userData.fullName || userData.username}! Thông tin đã được cập nhật từ server.`);
+        
+        // Giữ nguyên token khi cập nhật thông tin user
+        const existingUser = this.auth.getCurrentUser();
+        const updatedUserData = {
+          ...userData,
+          token: existingUser?.token // Giữ nguyên token
+        };
+        localStorage.setItem('user', JSON.stringify(updatedUserData));
+        
+        // Navigate to profile page
+        this.router.navigate(['/profile']);
       },
       error: (error) => {
         console.error('Lỗi khi lấy thông tin user:', error);

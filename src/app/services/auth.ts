@@ -45,6 +45,35 @@ export class AuthService {
 
   // Phương thức để gọi API User
   getUser(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl.replace('/Auth', '/User')}`);
+    const token = this.getToken();
+    console.log('Token retrieved:', token ? 'Token exists' : 'No token'); // Debug log
+    
+    const headers: { [key: string]: string } = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+      console.log('Authorization header set:', headers['Authorization']); // Debug log
+    } else {
+      console.warn('No token available for API call'); // Debug log
+    }
+    
+    return this.http.get<any>(`${this.apiUrl.replace('/Auth', '/User')}`, { headers });
   }
+
+  // Lấy token từ localStorage
+  private getToken(): string | null {
+    const user = localStorage.getItem('user');
+    if (user) {
+      try {
+        const userData = JSON.parse(user);
+        console.log('User data from localStorage:', userData); // Debug log
+        return userData.token || null;
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+        return null;
+      }
+    }
+    console.log('No user data in localStorage'); // Debug log
+    return null;
+  }
+  
 }
